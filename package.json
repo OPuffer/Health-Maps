@@ -1,0 +1,19 @@
+{
+  "name": "health-maps",
+  "version": "1.0.0",
+  "description": "Our submission to the 2022 Google Maps Hack-A-Thon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OPuffer/Health-Maps.git"
+  },
+  "author": "Oliver Puffer <pufferoliver@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OPuffer/Health-Maps/issues"
+  },
+  "homepage": "https://github.com/OPuffer/Health-Maps#readme"
+}
