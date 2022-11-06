@@ -105,6 +105,28 @@ function initAutocomplete() {
             infowindow.setContent(content);
             infowindow.open(map, marker);
           });
+        } else {
+          google.maps.event.addListener(marker, "click", () => {
+            const content = document.createElement("div");
+    
+            const nameElement = document.createElement("h2");
+    
+            nameElement.textContent = "An Error Occured";
+            content.appendChild(nameElement);
+    
+            const placeIdElement = document.createElement("p");
+    
+            placeIdElement.textContent = "Status is: " + status;
+            content.appendChild(placeIdElement);
+    
+            const placeAddressElement = document.createElement("p");
+    
+            placeAddressElement.textContent = "so you saw this instead!";
+            content.appendChild(placeAddressElement);
+    
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+          });
         }
       });
 
