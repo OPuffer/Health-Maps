@@ -77,60 +77,36 @@ function initAutocomplete() {
         placeId : place.place_id,
       };
 
-      service.getDetails(request, (place, status) => {
-        if (
-          status === google.maps.places.PlacesServiceStatus.OK &&
-          place &&
-          place.geometry &&
-          place.geometry.location
-        ) {
-          google.maps.event.addListener(marker, "click", () => {
-            const content = document.createElement("div");
-    
-            const nameElement = document.createElement("h2");
-    
-            nameElement.textContent = place.name!;
-            content.appendChild(nameElement);
-    
-            const placeIdElement = document.createElement("p");
-    
-            placeIdElement.textContent = place.place_id!;
-            content.appendChild(placeIdElement);
-    
-            const placeAddressElement = document.createElement("p");
-    
-            placeAddressElement.textContent = place.formatted_address!;
-            content.appendChild(placeAddressElement);
-    
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-          });
-        } else {
-          google.maps.event.addListener(marker, "click", () => {
-            const content = document.createElement("div");
-    
-            const nameElement = document.createElement("h2");
-    
-            nameElement.textContent = "An Error Occured";
-            content.appendChild(nameElement);
-    
-            const placeIdElement = document.createElement("p");
-    
-            placeIdElement.textContent = "Status is: " + status;
-            content.appendChild(placeIdElement);
-    
-            const placeAddressElement = document.createElement("p");
-    
-            placeAddressElement.textContent = "so you saw this instead!";
-            content.appendChild(placeAddressElement);
-    
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-          });
-        }
+      google.maps.event.addListener(marker, "click", () => {
+        service.getDetails(request, (place, status) => {
+          if (
+            status === google.maps.places.PlacesServiceStatus.OK &&
+            place &&
+            place.geometry &&
+            place.geometry.location
+          ) {
+              const content = document.createElement("div");
+      
+              const nameElement = document.createElement("h2");
+      
+              nameElement.textContent = place.name!;
+              content.appendChild(nameElement);
+      
+              const placeIdElement = document.createElement("p");
+      
+              placeIdElement.textContent = place.place_id!;
+              content.appendChild(placeIdElement);
+      
+              const placeAddressElement = document.createElement("p");
+      
+              placeAddressElement.textContent = place.formatted_address!;
+              content.appendChild(placeAddressElement);
+      
+              infowindow.setContent(content);
+              infowindow.open(map, marker);
+            }
+        });
       });
-
-
     });
 
     map.fitBounds(bounds);
