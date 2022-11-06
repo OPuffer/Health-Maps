@@ -35,6 +35,8 @@ function initAutocomplete() {
   // more details for that place.
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
+    const infowindow = new google.maps.InfoWindow();
+    const service = new google.maps.places.PlacesService(map);
 
     if (places.length == 0) {
       return;
@@ -55,23 +57,14 @@ function initAutocomplete() {
         return;
       }
 
-      const icon = {
-        url: place.icon as string,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25),
-      };
-
       // Create a marker for each place.
-      markers.push(
-        new google.maps.Marker({
-          map,
-          icon,
-          title: place.name,
-          position: place.geometry.location,
-        })
-      );
+      const marker : google.maps.Marker = new google.maps.Marker({
+        map,
+        title: place.name,
+        position: place.geometry.location,
+      }) 
+
+      markers.push(marker);
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
@@ -79,7 +72,45 @@ function initAutocomplete() {
       } else {
         bounds.extend(place.geometry.location);
       }
+
+      const request = {
+        placeId : place.place_id,
+      };
+
+      service.getDetails(request, (place, status) => {
+        if (
+          status === google.maps.places.PlacesServiceStatus.OK &&
+          place &&
+          place.geometry &&
+          place.geometry.location
+        ) {
+          google.maps.event.addListener(marker, "click", () => {
+            const content = document.createElement("div");
+    
+            const nameElement = document.createElement("h2");
+    
+            nameElement.textContent = place.name!;
+            content.appendChild(nameElement);
+    
+            const placeIdElement = document.createElement("p");
+    
+            placeIdElement.textContent = place.place_id!;
+            content.appendChild(placeIdElement);
+    
+            const placeAddressElement = document.createElement("p");
+    
+            placeAddressElement.textContent = place.formatted_address!;
+            content.appendChild(placeAddressElement);
+    
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
+          });
+        }
+      });
+
+
     });
+
     map.fitBounds(bounds);
   });
 }
