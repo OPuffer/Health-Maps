@@ -4,7 +4,8 @@
   "description": "Our submission to the 2022 Google Maps Hack-A-Thon",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all clean build && node app.ts",
+    "compile": "tsc && node app.ts",
+    "dev": "node ./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "test": "echo \"Error: no test specified\" && exit 1"
