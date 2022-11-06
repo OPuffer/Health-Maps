@@ -11,19 +11,20 @@
 
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-    <script type="module" src="./index.js"></script>
+    <script>var exports = {};</script>
+    <script type="module" src="./javascript/index.js"></script>
     <style>
-      #map {
-        height: 400px;
-        /* The height is 400 pixels */
-        width: 70%;
-        /* The width is the width of the web page */
-        background-color: gray;
-      }
+      
     </style>
   </head>
   <body>
     <h3>Health Maps</h3>
+    <input
+      id="pac-input"
+      class="controls"
+      type="text"
+      placeholder="Search Box"
+    />
     <!--The div element for the map -->
     <div id="map"></div>
 
@@ -34,7 +35,7 @@
      with https://www.npmjs.com/package/@googlemaps/js-api-loader.
     -->
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM_S0v7LZfdS3RD5t1xtftyqqbFthhQL4&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBM_S0v7LZfdS3RD5t1xtftyqqbFthhQL4&callback=initAutocomplete&libraries=places&v=weekly"
       defer
     ></script>
   </body>
