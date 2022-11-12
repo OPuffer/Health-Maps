@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { Loader } from '@googlemaps/js-api-loader';
 
+let healthData = require('./data.json');
+
 const loader = new Loader({
   apiKey: "AIzaSyBM_S0v7LZfdS3RD5t1xtftyqqbFthhQL4",
   version: "weekly",
@@ -26,8 +28,6 @@ function App() {
     </div>
   );
 }
-
-export default App;
 
 loader.loadCallback(e => {
   if (e) {
@@ -122,6 +122,11 @@ function mapLogic(){
       
               placeAddressElement.textContent = place.formatted_address!;
               content.appendChild(placeAddressElement);
+              if(healthData[place.place_id!]){
+                const supported_emergency = document.createElement("div");
+                supported_emergency.textContent = healthData[place.place_id!]["test"];
+                content.appendChild(supported_emergency);
+              }
       
               infowindow.setContent(content);
               infowindow.open(map, marker);
@@ -134,3 +139,4 @@ function mapLogic(){
   });
 }
 
+export default App;
