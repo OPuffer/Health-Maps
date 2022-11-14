@@ -5,7 +5,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 
 let healthData = require('./data.json');
 const loader = new Loader({
-  apiKey: "AIzaSyBM_S0v7LZfdS3RD5t1xtftyqqbFthhQL4",
+  apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
   version: "weekly",
   libraries: ["places"]
 });
@@ -24,12 +24,6 @@ function App() {
         <input id="pac-input" className="controls" type="text" placeholder="Search Box"></input>
         <div id = "map"></div>
         <div id = "filters">
-          {/* <input type="checkbox" id="pregnancyWard" name="pregnancyWard" value="P"></input>
-          <label htmlFor="pregnancyWard">Pregnancy Ward</label>
-          <input type="checkbox" id="strokeCenter" name="strokeCenter" value="S"></input>
-          <label htmlFor="strokeCenter">Stroke Center</label>
-          <input type="checkbox" id="traumaCenter" name="traumaCenter" value="T"></input>
-          <label htmlFor="traumaCenter">Trauma Center</label> */}
           <Checkbox/>
         </div>
       </header>
