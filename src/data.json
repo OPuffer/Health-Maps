@@ -1,0 +1,134 @@
+{
+    "ChIJjzSzPfOAhYARkWftX44ynf0": {
+        "name": "Chinese Hospital",
+        "p" : false,
+        "t" : false,
+        "s" : false
+        },
+    "ChIJGTLadJOAhYARng57neGhjk0": {
+        "name": "Saint Francis Memorial Hospital",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJW1PprriAhYARyiHA22e5Ecw": {
+        "name": "Hospital",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJZ2CoKLaAhYARYGlQHptfZT0": {
+        "name": "University of California San Francisco Medical Center",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJGQRYJraAhYARg8e-TXQ5BT0": {
+        "name": "UCSF Medical Center at Mount Zion",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJF5BLGjGHhYARB7lWPnelKdQ": {
+        "name": "California Pacific Medical Center California East",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJVVUl0j6HhYARiW7a6ed6Tb8": {
+        "name": "Kaiser Permanente San Francisco Medical Center",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+    "ChIJbyx6jU6HhYARXyU1Ylsnw8k" :{
+        "name": "Kentfield Hospital San Francisco",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJ82h8706HhYARtqUYN1WhsYU" : {
+        "name": "St. Mary’s Medical Center",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJP4tYYU6HhYAROpOz_5ULyoI" : {
+        "name": "Saint Francis Memorial Hospital Acute",
+            "p" : false,
+            "t" : false,
+            "s" : false
+    },
+
+    "ChIJdQzAJLeHhYARrOxSFgCvgDc": {
+        "name": "UCSF",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJg2PL2lmHhYARLICti5gT40s" : {
+        "name": "UCSF Medical Center",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    }, 
+
+    "ChIJs-pIpq2BhYARS5Nli9dVPOY" : {
+        "name": "CPMC Davies Campus",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    }, 
+    "ChIJJegV7zOHhYARcLDU3eS58jE" : {
+        "name": "UCSF Benioff Children's Hospital - San Francisco",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJoZqZYUp-j4ARE1_GSIBHgkA" : {
+        "name": "UCSF at San Francisco General Hospital",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJG9bTskt-j4ARBhzzHMYn48c" : {
+        "name": "Zuckerberg San Francisco General Hospital and Trauma Center",
+        "p" : false,
+        "t" : true,
+        "s" : false
+    },
+
+    "ChIJJW8itZR_j4ARyacc1Gbghik" : {
+        "name": "مستشفى عام",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJq6oGmkF-j4ARNhVmf1WLsYM" : {
+        "name": "Sutter Pacific Medical Foundation",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJ8-BJyEN-j4ARb1leZb52oKs" : {
+        "name": "Sutter Pacific Medical Foundation",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    },
+
+    "ChIJkRbB3r2AhYARWgtBJ-WjAyQ" : {
+        "name": "CPMC Van Ness Campus",
+        "p" : false,
+        "t" : false,
+        "s" : false
+    }
+
+}
