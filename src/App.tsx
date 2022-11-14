@@ -51,135 +51,187 @@ let service: google.maps.places.PlacesService;
 let places: google.maps.places.PlaceResult[];
 let markers: google.maps.Marker[] = [];
 let bounds: google.maps.LatLngBounds;
+let searchBox: google.maps.places.SearchBox;
 
 function mapLogic(){
   map = new google.maps.Map(document.getElementById("map") as HTMLElement, mapOptions);
   const input = document.getElementById("pac-input") as HTMLInputElement;
-  const searchBox = new google.maps.places.SearchBox(input);
+  searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   map.addListener("bounds_changed", () => {
     searchBox.setBounds(map.getBounds() as google.maps.LatLngBounds);
   });
 
+  // searchBox.addListener("places_changed", () => {
+  //   places = searchBox.getPlaces()!;
+  //   infowindow = new google.maps.InfoWindow();
+  //   service = new google.maps.places.PlacesService(map);
+
+  //   if (places === undefined) {
+  //     return;
+  //   }
+
+  //   // Clear out the old markers.
+  //   markers.forEach((marker) => {
+  //     marker.setMap(null);
+  //   });
+  //   markers = [];
+
+  //   // For each place, get the icon, name and location.
+  //   bounds = new google.maps.LatLngBounds();
+
+  //   places.forEach((place) => {
+  //     if (!place.geometry || !place.geometry.location) {
+  //       console.log("Returned place contains no geometry");
+  //       return;
+  //     }
+
+  //     if(place.place_id === undefined){
+  //       console.log("Returned place contains no ID");
+  //       return;
+  //     }
+      
+  //     if(!checkedP && !checkedT && !checkedS) {
+  //       console.log("All good case");
+  //     }else if (healthData[place.place_id!] === undefined){
+  //       return;
+  //     } else if (checkedP && healthData[place.place_id!]["p"] === true){
+  //       console.log("P only");
+  //     } else if(checkedT && healthData[place.place_id!]["t"] === true){
+  //       console.log("T only");
+  //     } else if (checkedS && healthData[place.place_id!]["s"] === true){
+  //       console.log("S only");
+  //     } else {
+  //       return;
+  //     }
+
+  //     // Create a marker for each place.
+  //     const marker : google.maps.Marker = new google.maps.Marker({
+  //       map,
+  //       title: place.name,
+  //       position: place.geometry.location,
+  //     }) 
+
+  //     markers.push(marker);
+
+  //     if (place.geometry.viewport) {
+  //       // Only geocodes have viewport.
+  //       bounds.union(place.geometry.viewport);
+  //     } else {
+  //       bounds.extend(place.geometry.location);
+  //     }
+
+  //     const request = {
+  //       placeId : place.place_id,
+  //     };
+
+  //     google.maps.event.addListener(marker, "click", () => {
+  //       service.getDetails(request, (place, status) => {
+  //         if (
+  //           status === google.maps.places.PlacesServiceStatus.OK &&
+  //           place &&
+  //           place.geometry &&
+  //           place.geometry.location
+  //         ) {
+  //             const content = document.createElement("div");
+      
+  //             const nameElement = document.createElement("h2");
+      
+  //             nameElement.textContent = place.name!;
+  //             content.appendChild(nameElement);
+      
+  //             const placeIdElement = document.createElement("p");
+      
+  //             placeIdElement.textContent = place.place_id!;
+  //             content.appendChild(placeIdElement);
+      
+  //             const placeAddressElement = document.createElement("p");
+      
+  //             placeAddressElement.textContent = place.formatted_address!;
+  //             content.appendChild(placeAddressElement);
+  //             if(healthData[place.place_id!]){
+  //               const pregnancySupport = document.createElement("div");
+  //               pregnancySupport.textContent = "Supports Pregnancy? : " + healthData[place.place_id!]["p"];
+  //               content.appendChild(pregnancySupport);
+
+  //               const traumaSupport = document.createElement("div");
+  //               traumaSupport.textContent = "Trauma Center? : " + healthData[place.place_id!]["p"];
+  //               content.appendChild(traumaSupport);
+
+  //               const strokeSupport = document.createElement("div");
+  //               strokeSupport.textContent = "Stroke Center? : " + healthData[place.place_id!]["p"];
+  //               content.appendChild(strokeSupport);
+  //             }
+      
+  //             infowindow.setContent(content);
+  //             infowindow.open(map, marker);
+  //           }
+  //       });
+  //     });
+  //   });
+
+  //   map.fitBounds(bounds);
+  // });
+
   searchBox.addListener("places_changed", () => {
-    places = searchBox.getPlaces()!;
-    infowindow = new google.maps.InfoWindow();
-    service = new google.maps.places.PlacesService(map);
+    filterResults();
+  });
+}
 
-    if (places === undefined) {
-      return;
-    }
+function clickBox(request: google.maps.places.PlaceDetailsRequest, marker:google.maps.Marker){
+  service.getDetails(request, (place, status) => {
+    if (
+      status === google.maps.places.PlacesServiceStatus.OK &&
+      place &&
+      place.geometry &&
+      place.geometry.location
+    ) {
+        const content = document.createElement("div");
 
-    // Clear out the old markers.
-    markers.forEach((marker) => {
-      marker.setMap(null);
-    });
-    markers = [];
+        const nameElement = document.createElement("h2");
 
-    // For each place, get the icon, name and location.
-    bounds = new google.maps.LatLngBounds();
+        nameElement.textContent = place.name!;
+        content.appendChild(nameElement);
 
-    places.forEach((place) => {
-      if (!place.geometry || !place.geometry.location) {
-        console.log("Returned place contains no geometry");
-        return;
+        const placeIdElement = document.createElement("p");
+
+        placeIdElement.textContent = place.place_id!;
+        content.appendChild(placeIdElement);
+
+        const placeAddressElement = document.createElement("p");
+
+        placeAddressElement.textContent = place.formatted_address!;
+        content.appendChild(placeAddressElement);
+        if(healthData[place.place_id!]){
+          const pregnancySupport = document.createElement("div");
+          pregnancySupport.textContent = "Supports Pregnancy? : " + healthData[place.place_id!]["p"];
+          content.appendChild(pregnancySupport);
+
+          const traumaSupport = document.createElement("div");
+          traumaSupport.textContent = "Trauma Center? : " + healthData[place.place_id!]["p"];
+          content.appendChild(traumaSupport);
+
+          const strokeSupport = document.createElement("div");
+          strokeSupport.textContent = "Stroke Center? : " + healthData[place.place_id!]["p"];
+          content.appendChild(strokeSupport);
+        }
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
       }
-
-      if(place.place_id === undefined){
-        console.log("Returned place contains no ID");
-        return;
-      }
-      
-      if(!checkedP && !checkedT && !checkedS) {
-        console.log("All good case");
-      }else if (healthData[place.place_id!] === undefined){
-        return;
-      } else if (checkedP && healthData[place.place_id!]["p"] === true){
-        console.log("P only");
-      } else if(checkedT && healthData[place.place_id!]["t"] === true){
-        console.log("T only");
-      } else if (checkedS && healthData[place.place_id!]["s"] === true){
-        console.log("S only");
-      } else {
-        console.log("Else Case!");
-        return;
-      }
-
-      // Create a marker for each place.
-      const marker : google.maps.Marker = new google.maps.Marker({
-        map,
-        title: place.name,
-        position: place.geometry.location,
-      }) 
-
-      markers.push(marker);
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-
-      const request = {
-        placeId : place.place_id,
-      };
-
-      google.maps.event.addListener(marker, "click", () => {
-        service.getDetails(request, (place, status) => {
-          if (
-            status === google.maps.places.PlacesServiceStatus.OK &&
-            place &&
-            place.geometry &&
-            place.geometry.location
-          ) {
-              const content = document.createElement("div");
-      
-              const nameElement = document.createElement("h2");
-      
-              nameElement.textContent = place.name!;
-              content.appendChild(nameElement);
-      
-              const placeIdElement = document.createElement("p");
-      
-              placeIdElement.textContent = place.place_id!;
-              content.appendChild(placeIdElement);
-      
-              const placeAddressElement = document.createElement("p");
-      
-              placeAddressElement.textContent = place.formatted_address!;
-              content.appendChild(placeAddressElement);
-              if(healthData[place.place_id!]){
-                const pregnancySupport = document.createElement("div");
-                pregnancySupport.textContent = "Supports Pregnancy? : " + healthData[place.place_id!]["p"];
-                content.appendChild(pregnancySupport);
-
-                const traumaSupport = document.createElement("div");
-                traumaSupport.textContent = "Trauma Center? : " + healthData[place.place_id!]["p"];
-                content.appendChild(traumaSupport);
-
-                const strokeSupport = document.createElement("div");
-                strokeSupport.textContent = "Stroke Center? : " + healthData[place.place_id!]["p"];
-                content.appendChild(strokeSupport);
-              }
-      
-              infowindow.setContent(content);
-              infowindow.open(map, marker);
-            }
-        });
-      });
-    });
-
-    map.fitBounds(bounds);
   });
 }
 
 function filterResults() {
-  
+  places = searchBox.getPlaces()!;
+  infowindow = new google.maps.InfoWindow();
+  service = new google.maps.places.PlacesService(map);
+
   if (places === undefined) {
     return;
   }
+
   // Clear out the old markers.
   markers.forEach((marker) => {
     marker.setMap(null);
@@ -187,11 +239,14 @@ function filterResults() {
   markers = [];
 
   // For each place, get the icon, name and location.
+  bounds = new google.maps.LatLngBounds();
+
   places.forEach((place) => {
     if (!place.geometry || !place.geometry.location) {
       console.log("Returned place contains no geometry");
       return;
     }
+
     if(place.place_id === undefined){
       console.log("Returned place contains no ID");
       return;
@@ -208,7 +263,6 @@ function filterResults() {
     } else if (checkedS && healthData[place.place_id!]["s"] === true){
       console.log("S only");
     } else {
-      console.log("Else Case!");
       return;
     }
 
@@ -217,7 +271,9 @@ function filterResults() {
       map,
       title: place.name,
       position: place.geometry.location,
-    }); 
+    }) 
+
+    markers.push(marker);
 
     if (place.geometry.viewport) {
       // Only geocodes have viewport.
@@ -229,50 +285,10 @@ function filterResults() {
     const request = {
       placeId : place.place_id,
     };
+
     google.maps.event.addListener(marker, "click", () => {
-      service.getDetails(request, (place, status) => {
-        if (
-          status === google.maps.places.PlacesServiceStatus.OK &&
-          place &&
-          place.geometry &&
-          place.geometry.location
-        ) {
-            const content = document.createElement("div");
-    
-            const nameElement = document.createElement("h2");
-    
-            nameElement.textContent = place.name!;
-            content.appendChild(nameElement);
-    
-            const placeIdElement = document.createElement("p");
-    
-            placeIdElement.textContent = place.place_id!;
-            content.appendChild(placeIdElement);
-    
-            const placeAddressElement = document.createElement("p");
-    
-            placeAddressElement.textContent = place.formatted_address!;
-            content.appendChild(placeAddressElement);
-            if(healthData[place.place_id!]){
-              const pregnancySupport = document.createElement("div");
-              pregnancySupport.textContent = "Supports Pregnancy? : " + healthData[place.place_id!]["p"];
-              content.appendChild(pregnancySupport);
-
-              const traumaSupport = document.createElement("div");
-              traumaSupport.textContent = "Trauma Center? : " + healthData[place.place_id!]["p"];
-              content.appendChild(traumaSupport);
-
-              const strokeSupport = document.createElement("div");
-              strokeSupport.textContent = "Stroke Center? : " + healthData[place.place_id!]["p"];
-              content.appendChild(strokeSupport);
-            }
-    
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-          }
-      });
+      clickBox(request, marker);
     });
-
   });
 
   map.fitBounds(bounds);
