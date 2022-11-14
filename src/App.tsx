@@ -86,19 +86,7 @@ function clickBox(request: google.maps.places.PlaceDetailsRequest, marker:google
 
         placeAddressElement.textContent = place.formatted_address!;
         content.appendChild(placeAddressElement);
-        if(healthData[place.place_id!]){
-          const pregnancySupport = document.createElement("div");
-          pregnancySupport.textContent = "Supports Pregnancy? : " + healthData[place.place_id!]["p"];
-          content.appendChild(pregnancySupport);
-
-          const traumaSupport = document.createElement("div");
-          traumaSupport.textContent = "Trauma Center? : " + healthData[place.place_id!]["p"];
-          content.appendChild(traumaSupport);
-
-          const strokeSupport = document.createElement("div");
-          strokeSupport.textContent = "Stroke Center? : " + healthData[place.place_id!]["p"];
-          content.appendChild(strokeSupport);
-        }
+       
 
         infowindow.setContent(content);
         infowindow.open(map, marker);

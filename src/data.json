@@ -1,14 +1,14 @@
 {
     "ChIJjzSzPfOAhYARkWftX44ynf0": {
         "name": "Chinese Hospital",
-        "p" : false,
+        "p" : true,
         "t" : false,
         "s" : false
         },
     "ChIJGTLadJOAhYARng57neGhjk0": {
         "name": "Saint Francis Memorial Hospital",
         "p" : false,
-        "t" : false,
+        "t" : true,
         "s" : false
     },
     "ChIJW1PprriAhYARyiHA22e5Ecw": {
@@ -50,15 +50,15 @@
 
     "ChIJ82h8706HhYARtqUYN1WhsYU" : {
         "name": "St. Mary’s Medical Center",
-        "p" : false,
+        "p" : true,
         "t" : false,
-        "s" : false
+        "s" : true
     },
 
     "ChIJP4tYYU6HhYAROpOz_5ULyoI" : {
         "name": "Saint Francis Memorial Hospital Acute",
             "p" : false,
-            "t" : false,
+            "t" : true,
             "s" : false
     },
 
@@ -113,7 +113,7 @@
     "ChIJq6oGmkF-j4ARNhVmf1WLsYM" : {
         "name": "Sutter Pacific Medical Foundation",
         "p" : false,
-        "t" : false,
+        "t" : true,
         "s" : false
     },
 
@@ -121,12 +121,12 @@
         "name": "Sutter Pacific Medical Foundation",
         "p" : false,
         "t" : false,
-        "s" : false
+        "s" : true
     },
 
     "ChIJkRbB3r2AhYARWgtBJ-WjAyQ" : {
         "name": "CPMC Van Ness Campus",
-        "p" : false,
+        "p" : true,
         "t" : false,
         "s" : false
     }
