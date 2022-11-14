@@ -5,9 +5,9 @@
       "removeComments": false,
       "sourceMap": true,
       "target": "es5",
-      "outDir": "javascript" 
+      "outDir": "dist" 
     },
     "include": [
-      "./"
-    ]
+      "./src/"
+, "app.ts"    ]
 }
